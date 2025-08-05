@@ -2,6 +2,8 @@
 
 This unsets all fonts in the game, forcing it to fallback to a much more pleasing default font.
 
+<img width="738" height="174" alt="image" src="https://github.com/user-attachments/assets/cbe13c2f-59e7-45d7-b592-305020bf01c6" />
+
 ![](./dumpster_preview.webp)
 
 ![](./prole_menu.webp)
