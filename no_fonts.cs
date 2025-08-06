@@ -3,6 +3,7 @@ using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace no_fonts
 {
@@ -11,15 +12,26 @@ namespace no_fonts
 	{
 		void Update()
 		{
-			var texts = GameObject.FindObjectsByType<TMP_Text>(UnityEngine.FindObjectsSortMode.None);
-			foreach (TMP_Text txt in texts)
+			Scene uiScene = SceneManager.GetSceneByName("UserInterface");
+			if (uiScene.loadingState == Scene.LoadingState.Loaded)
 			{
-				txt.font = null;
+				GameObject[] uiObjs = uiScene.GetRootGameObjects();
+				foreach (GameObject obj in uiObjs)
+				{
+					TMP_Text[] texts = obj.GetComponentsInChildren<TMP_Text>(false);
+					foreach (TMP_Text txt in texts)
+					{
+						if (txt.font != null) {
+							txt.font = null;
+						}
+					}
+				}
 			}
 		}
+
 	}
 
-	[BepInPlugin("no_fonts", "No Fonts", "0.0.1")]
+	[BepInPlugin("no_fonts", "No Fonts", "0.0.2")]
 	public class NoFonts : BasePlugin
 	{
 		internal static new ManualLogSource Log;
