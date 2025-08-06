@@ -11,12 +11,12 @@ namespace no_fonts
 	{
 		void Update()
 		{
-            var texts = GameObject.FindObjectsByType<TMP_Text>(UnityEngine.FindObjectsSortMode.None);
-            foreach (TMP_Text txt in texts)
-            {
-                txt.font = null;
-            }
-        }
+			var texts = GameObject.FindObjectsByType<TMP_Text>(UnityEngine.FindObjectsSortMode.None);
+			foreach (TMP_Text txt in texts)
+			{
+				txt.font = null;
+			}
+		}
 	}
 
 	[BepInPlugin("no_fonts", "No Fonts", "0.0.1")]
