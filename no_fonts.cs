@@ -10,8 +10,12 @@ namespace no_fonts
 
 	public class NoFonts_Component : MonoBehaviour 
 	{
+		private float nextScan = 0.0f;
 		void Update()
 		{
+			if (Time.time <= nextScan) { return; }
+			nextScan += 0.5f;
+
 			Scene uiScene = SceneManager.GetSceneByName("UserInterface");
 			if (uiScene.loadingState == Scene.LoadingState.Loaded)
 			{
