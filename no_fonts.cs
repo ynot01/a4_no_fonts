@@ -16,8 +16,8 @@ namespace no_fonts
 		[HarmonyPostfix]
 		[HarmonyPatch(typeof(TextMeshProUGUI), nameof(TextMeshProUGUI.Awake))]
 		static void OverrideAwake(TextMeshProUGUI __instance) {
-            __instance.font = null;
-        }
+			__instance.font = null;
+		}
 	}
 
 	[BepInPlugin("no_fonts", "No Fonts", "0.0.5")]
