@@ -3,39 +3,24 @@ using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using HarmonyLib;
 
 namespace no_fonts
 {
-
-	public class NoFonts_Component : MonoBehaviour 
+	class NoFonts_Component : MonoBehaviour
 	{
-		private float nextScan = 0.0f;
-		void Update()
-		{
-			if (Time.time <= nextScan) { return; }
-			nextScan += 0.5f;
-
-			Scene uiScene = SceneManager.GetSceneByName("UserInterface");
-			if (uiScene.loadingState == Scene.LoadingState.Loaded)
-			{
-				GameObject[] uiObjs = uiScene.GetRootGameObjects();
-				foreach (GameObject obj in uiObjs)
-				{
-					TMP_Text[] texts = obj.GetComponentsInChildren<TMP_Text>(false);
-					foreach (TMP_Text txt in texts)
-					{
-						if (txt.font != null) {
-							txt.font = null;
-						}
-					}
-				}
-			}
+		void Awake() {
+			Harmony.CreateAndPatchAll(typeof(NoFonts_Component));
 		}
 
+		[HarmonyPostfix]
+		[HarmonyPatch(typeof(TextMeshProUGUI), nameof(TextMeshProUGUI.Awake))]
+		static void OverrideAwake(TextMeshProUGUI __instance) {
+            __instance.font = null;
+        }
 	}
 
-	[BepInPlugin("no_fonts", "No Fonts", "0.0.2")]
+	[BepInPlugin("no_fonts", "No Fonts", "0.0.5")]
 	public class NoFonts : BasePlugin
 	{
 		internal static new ManualLogSource Log;
